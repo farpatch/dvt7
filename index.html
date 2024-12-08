@@ -3,7 +3,8 @@
 
 <head>
     <title>Farpatch DVT7</title>
-    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <!-- SimpleCSS from https://simplecss.org/ -->
+    <link rel="stylesheet" type="text/css" href="simple.css">
 </head>
 
 <body>
@@ -13,7 +14,8 @@
         </div>
         <div class="content">
             <h3>About</h3>
-            You have come into possession of a Farpatch DVT7 board. Congratulations! This is one of 50 boards produced, and is designed to provide final testing before production.
+            You have come into possession of a Farpatch DVT7 board. Congratulations! This is one of 50 boards produced,
+            and is designed to provide final testing before production.
 
             This board has the following features:
             <ul>
@@ -28,50 +30,89 @@
 
             <h3>Modifying the case</h3>
             The case requires slightly modification to work with the wifi antenna.
-            To use the case, use a knife to chip away a bit of the material. This will be used to allow the wifi antenna to escape the case once connected.
+            To use the case, use a knife to chip away a bit of the material. This will be used to allow the wifi antenna
+            to escape the case once connected.
 
             <h3>Setup</h3>
-            To set up the board, connect the supplied wifi antenna. Note that U.Fl connectors need a lot of force. Make sure you don't bend the metalic shell while connecting it! Once attached, angle the antenna so that it goes out over the USB connector.
+            To set up the board, connect the supplied wifi antenna. Note that U.Fl connectors need a lot of force. Make
+            sure you don't bend the metalic shell while connecting it! Once attached, angle the antenna so that it goes
+            out over the USB connector.
 
-            Finally, connect Farpatch to a debug target with a standard 10-pin Cortex debug cable. The red LED will turn on, indicating that Farpatch is running.
+            Finally, connect Farpatch to a debug target with a standard 10-pin Cortex debug cable. The red LED will turn
+            on, indicating that Farpatch is running.
 
             <h3>Conencting to Farpatch</h3>
-            Each Farpatch device has a unique name. This name is derived from the MAC address of the ESP32-C6. When you first connect Farpatch, it will start an access point. This will be named using a format of <code>Farpatch (word1 word2)</code>. By default, there is no password.
+            Each Farpatch device has a unique name. This name is derived from the MAC address of the ESP32-C6. When you
+            first connect Farpatch, it will start an access point. This will be named using a format of
+            <code>Farpatch (word1 word2)</code>. By default, there is no password.
 
-            You can connect to Farpatch by going to http://10.10.0.1, or using mDNS you can go to http://farpatch-word1-word2.local.
+            You can connect to Farpatch by going to <code>http://10.10.0.1</code>, or using mDNS you can go to
+            <code>http://farpatch-word1-word2.local</code>.
 
             <h3>Configuring Farpatch</h3>
-            To configure Farpatch, go to its web interface and select "Settings". There is a section titled "Wifi Client", which will contain a list of locally-discovered access points. You can connect to an access point using this list.
+            To configure Farpatch, go to its web interface and select "Settings". There is a section titled "Wifi
+            Client", which will contain a list of locally-discovered access points. You can connect to an access point
+            using this list.
 
-            Farpatch supports multiple access points. Additionally, it supports acting as both an access point itself, as well as a wifi client. You can improve performance by unchecking the "Enabled" box under "AP Mode". <strong>Note that Farpatch will always start an AP if it is unable to connect to an access point.</strong>
+            Farpatch supports multiple access points. Additionally, it supports acting as both an access point itself,
+            as well as a wifi client. You can improve performance by unchecking the "Enabled" box under "AP Mode".
+            <strong>Note that Farpatch will always start an AP if it is unable to connect to an access point.</strong>
 
             <h3>Using Farpatch</h3>
-            Farpatch starts a GDB server on port 2022. You can start a GDB session by running <code>arm-none-eabi-gdb</code> and connecting to the target with <code>target ext farpatch-word1-word2.local:2022</code>. You can then use this like a standard Black Magic Device.
+            Farpatch starts a GDB server on port 2022. You can start a GDB session by running
+            <code>arm-none-eabi-gdb</code> and connecting to the target with
+            <code>target ext farpatch-word1-word2.local:2022</code>. You can then use this like a standard Black Magic
+            Device.
 
-            For example, run `mon s` to scan for SWD devices, then run `att 1` to attach to the first discovered device. Alternately, run `mon j` to perform a JTAG scan.
+            For example, run <code>mon s</code> to scan for SWD devices, then run <code>att 1</code> to attach to the
+            first discovered device. Alternately, run <code>mon j</code> to perform a JTAG scan.
 
-            Farpatch also supports RTT. An RTT interface is available via the web interface, or you can telnet to port 2123.
+            Farpatch also supports RTT. An RTT interface is available via the web interface, or you can telnet to port
+            2123.
 
             <h3>Serial Connection</h3>
-            Farpatch supports the Universal Uart standard. This places UART communication signals on pins 7 and 9 of the debug header. If your target has a Universal UART, then you can use Farpatch to communicate with the target over serial.
+            Farpatch supports the Universal Uart standard. This places UART communication signals on pins 7 and 9 of the
+            debug header. If your target has a Universal UART, then you can use Farpatch to communicate with the target
+            over serial.
 
             <h3>Developing for Farpatch</h3>
             The firmware for Farpatch is written using ESP-IDF. To develop for Farpatch, perform the following actions:
 
             <ol>
-                <li>Download the esp-idf main branch: git clone --recursive https://github.com/espressif/esp-idf.git</li>
-                <li>Install the dependencies: cd esp-idf; ./install.sh</li>
-                <li>Set up the environment: . export.sh</li>
-                <li>Clone Farpatch: git clone --recursive https://github.com/farpatch/farpatch.git</li>
-                <li>Configure Farpatch and set DVT7 as the hardware: cd farpatch; idf.py set-target esp32c6; idf.py menuconfig</li>
-                <li>Build Farpatch: idf.py build</li>
+                <li>Download the esp-idf main branch:<br />
+                    <code>git clone --recursive https://github.com/espressif/esp-idf.git</code>
+                </li>
+                <li>Install the dependencies:<br /><code>cd esp-idf; ./install.sh</code></li>
+                <li>Set up the environment:<br /><code>. export.sh</code></li>
+                <li>Clone Farpatch:<br /><code>git clone --recursive https://github.com/farpatch/farpatch.git</code>
+                </li>
+                <li>Configure Farpatch and set DVT7 as the hardware:<br />
+                    <code>cd farpatch; idf.py set-target esp32c6; idf.py menuconfig</code>
+                </li>
+                <li>Build Farpatch:<br /><code>idf.py build</code></li>
             </ol>
 
-            You can then flash `build/farpatch.bin` using the built-in UI, or via TFTP. The web interface will roll back the update if it fails to stay running for more than a few seconds in order to protect against invalid firmware images.
+            You can then flash <code>build/farpatch.bin</code> using the built-in UI, or via TFTP. The web interface
+            will roll back
+            the update if it fails to stay running for more than a few seconds in order to protect against invalid
+            firmware images.
 
-            Alternately, you can plug Farpatch into a USB-C connection and develop that way. For example: idf.py -p /dev/cu.usbmodem* build flash monitor
+            Alternately, you can plug Farpatch into a USB-C connection and develop that way. For example:
+            <code>idf.py -p /dev/cu.usbmodem* build flash monitor</code>
 
-            It is possible to power Farpatch from USB-C or from the target -- it will draw power from whichever has the higher voltage.
+            It is possible to power Farpatch from USB-C or from the target -- it will draw power from whichever has the
+            higher voltage.
+
+            <h3>A Note about Low Voltages</h3>
+            Farpatch is designed to work down to 1.8 volts, however the nature of wifi means that there are very high
+            current transients. As a result, lower voltage power supplies may not be able to supply enough power for
+            transmitting, particularly at high power.
+
+            This is an ongoing area of research. There is an option to enable low power mode and limit the transmit
+            power to 10 dBm. The ESP-IDF function <a
+                href="https://docs.espressif.com/projects/esp-idf/en/v5.3.2/esp32/api-reference/network/esp_wifi.html#_CPPv425esp_wifi_set_max_tx_power6int8_t"><code>esp_wifi_set_max_tx_power(int8_t power)</code></a>
+            is potentially useful in determining an acceptable transmit power level, particularly if we measure the
+            voltage droop of the main voltage supply. However, this is a work in progress.
         </div>
     </div>
 </body>
