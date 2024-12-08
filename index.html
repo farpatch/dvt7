@@ -1,120 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farpatch DVT7</title>
     <!-- SimpleCSS from https://simplecss.org/ -->
     <link rel="stylesheet" type="text/css" href="simple.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h2>Farpatch DVT7</h2>
-        </div>
-        <div class="content">
-            <h3>About</h3>
+    <header>
+        <h1>Farpatch DVT7</h1>
+    </header>
+    <main>
+        <h3>About</h3>
+        <p>
             You have come into possession of a Farpatch DVT7 board. Congratulations! This is one of 50 boards produced,
             and is designed to provide final testing before production.
-
+        <p>
             This board has the following features:
-            <ul>
-                <li>10-pin Cortex debug header (1.27mm pitch)</li>
-                <li>Buck-boost capable of powering off 1.8V - 5V</li>
-                <li>Level shifters for working across the entire power range</li>
-                <li>2.4 GHz Wifi, powered by an ESP32-C6</li>
-                <li>16 MB SPI flash</li>
-                <li>Software powered by Farpatch and the Black Magic Debug project</li>
-                <li>USB-C connection for development</li>
-            </ul>
+        <ul>
+            <li>10-pin Cortex debug header (1.27mm pitch)</li>
+            <li>Buck-boost capable of powering off 1.8V - 5V</li>
+            <li>Level shifters for working across the entire power range</li>
+            <li>2.4 GHz Wifi, powered by an ESP32-C6</li>
+            <li>16 MB SPI flash</li>
+            <li>Software powered by Farpatch and the Black Magic Debug project</li>
+            <li>USB-C connection for development</li>
+        </ul>
 
-            <h3>Modifying the case</h3>
+        <h3>Modifying the case</h3>
+        <p>
             The case requires slightly modification to work with the wifi antenna.
+        <p>
             To use the case, use a knife to chip away a bit of the material. This will be used to allow the wifi antenna
             to escape the case once connected.
 
-            <h3>Setup</h3>
+        <h3>Setup</h3>
+        <p>
             To set up the board, connect the supplied wifi antenna. Note that U.Fl connectors need a lot of force. Make
             sure you don't bend the metalic shell while connecting it! Once attached, angle the antenna so that it goes
             out over the USB connector.
-
+        <p>
             Finally, connect Farpatch to a debug target with a standard 10-pin Cortex debug cable. The red LED will turn
             on, indicating that Farpatch is running.
 
-            <h3>Conencting to Farpatch</h3>
+        <h3>Conencting to Farpatch</h3>
+        <p>
             Each Farpatch device has a unique name. This name is derived from the MAC address of the ESP32-C6. When you
             first connect Farpatch, it will start an access point. This will be named using a format of
             <code>Farpatch (word1 word2)</code>. By default, there is no password.
-
+        <p>
             You can connect to Farpatch by going to <code>http://10.10.0.1</code>, or using mDNS you can go to
             <code>http://farpatch-word1-word2.local</code>.
 
-            <h3>Configuring Farpatch</h3>
+        <h3>Configuring Farpatch</h3>
+        <p>
             To configure Farpatch, go to its web interface and select "Settings". There is a section titled "Wifi
             Client", which will contain a list of locally-discovered access points. You can connect to an access point
             using this list.
 
+        <p>
             Farpatch supports multiple access points. Additionally, it supports acting as both an access point itself,
             as well as a wifi client. You can improve performance by unchecking the "Enabled" box under "AP Mode".
             <strong>Note that Farpatch will always start an AP if it is unable to connect to an access point.</strong>
 
-            <h3>Using Farpatch</h3>
+        <h3>Using Farpatch</h3>
+        <p>
             Farpatch starts a GDB server on port 2022. You can start a GDB session by running
             <code>arm-none-eabi-gdb</code> and connecting to the target with
             <code>target ext farpatch-word1-word2.local:2022</code>. You can then use this like a standard Black Magic
             Device.
 
+        <p>
             For example, run <code>mon s</code> to scan for SWD devices, then run <code>att 1</code> to attach to the
             first discovered device. Alternately, run <code>mon j</code> to perform a JTAG scan.
 
+        <p>
             Farpatch also supports RTT. An RTT interface is available via the web interface, or you can telnet to port
             2123.
 
-            <h3>Serial Connection</h3>
+        <h3>Serial Connection</h3>
+        <p>
             Farpatch supports the Universal Uart standard. This places UART communication signals on pins 7 and 9 of the
             debug header. If your target has a Universal UART, then you can use Farpatch to communicate with the target
             over serial.
 
-            <h3>Developing for Farpatch</h3>
+        <h3>Developing for Farpatch</h3>
+        <p>
             The firmware for Farpatch is written using ESP-IDF. To develop for Farpatch, perform the following actions:
 
-            <ol>
-                <li>Download the esp-idf main branch:<br />
-                    <code>git clone --recursive https://github.com/espressif/esp-idf.git</code>
-                </li>
-                <li>Install the dependencies:<br /><code>cd esp-idf; ./install.sh</code></li>
-                <li>Set up the environment:<br /><code>. export.sh</code></li>
-                <li>Clone Farpatch:<br /><code>git clone --recursive https://github.com/farpatch/farpatch.git</code>
-                </li>
-                <li>Configure Farpatch and set DVT7 as the hardware:<br />
-                    <code>cd farpatch; idf.py set-target esp32c6; idf.py menuconfig</code>
-                </li>
-                <li>Build Farpatch:<br /><code>idf.py build</code></li>
-            </ol>
+        <ol>
+            <li>Download the esp-idf main branch:<br />
+                <code>git clone --recursive https://github.com/espressif/esp-idf.git</code>
+            </li>
+            <li>Install the dependencies:<br /><code>cd esp-idf; ./install.sh</code></li>
+            <li>Set up the environment:<br /><code>. export.sh</code></li>
+            <li>Clone Farpatch:<br /><code>git clone --recursive https://github.com/farpatch/farpatch.git</code>
+            </li>
+            <li>Configure Farpatch and set DVT7 as the hardware:<br />
+                <code>cd farpatch; idf.py set-target esp32c6; idf.py menuconfig</code>
+            </li>
+            <li>Build Farpatch:<br /><code>idf.py build</code></li>
+        </ol>
 
+        <p>
             You can then flash <code>build/farpatch.bin</code> using the built-in UI, or via TFTP. The web interface
             will roll back
             the update if it fails to stay running for more than a few seconds in order to protect against invalid
             firmware images.
 
+        <p>
             Alternately, you can plug Farpatch into a USB-C connection and develop that way. For example:
             <code>idf.py -p /dev/cu.usbmodem* build flash monitor</code>
 
+        <p>
             It is possible to power Farpatch from USB-C or from the target -- it will draw power from whichever has the
             higher voltage.
 
-            <h3>A Note about Low Voltages</h3>
+        <h3>A Note about Low Voltages</h3>
+        <p>
             Farpatch is designed to work down to 1.8 volts, however the nature of wifi means that there are very high
             current transients. As a result, lower voltage power supplies may not be able to supply enough power for
             transmitting, particularly at high power.
 
+        <p>
             This is an ongoing area of research. There is an option to enable low power mode and limit the transmit
             power to 10 dBm. The ESP-IDF function <a
                 href="https://docs.espressif.com/projects/esp-idf/en/v5.3.2/esp32/api-reference/network/esp_wifi.html#_CPPv425esp_wifi_set_max_tx_power6int8_t"><code>esp_wifi_set_max_tx_power(int8_t power)</code></a>
             is potentially useful in determining an acceptable transmit power level, particularly if we measure the
             voltage droop of the main voltage supply. However, this is a work in progress.
-        </div>
-    </div>
+    </main>
 </body>
 
 </html>
